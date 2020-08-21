@@ -56,7 +56,7 @@ RecMaker=function(Mins,Maxs,Periods,Ys,Slope,wmax){
     Rlog=Rlog[-which(Rlog$Y%in%tmpRec$Y),] #Remove extreme years that have been generated before
     
     Rlog=rbind(tmpRec,Rlog) #Merge interpolated values with generated ones
-    Rlog=arrange(Rlog,Y)
+    Rlog=dplyr::arrange(Rlog,Y)
     
     Rs=rbind(Rs,Rlog)
   }
@@ -71,8 +71,8 @@ RecMaker=function(Mins,Maxs,Periods,Ys,Slope,wmax){
 }
 
 #Example usage (uncomment and run. Will output a figure in your working directory)
-# tiff(filename = 'RecVectors.tiff', width = 4000, height = 3000, units = "px", pointsize = 12,
-#      compression = "lzw", bg = "white", res = 600)
+# png(filename = 'RecVectors.png', width = 4000, height = 3000, units = "px", pointsize = 12,
+#      bg = "white", res = 600)
 # par(mai=c(0.5,0.5,0.1,0.1)) #c(bottom, left, top, right)
 # par(xaxs='i',yaxs='i',lend=1)
 # par(mfrow=c(3,3))
@@ -83,7 +83,7 @@ RecMaker=function(Mins,Maxs,Periods,Ys,Slope,wmax){
 # for(i in 1:9){
 #   plot(RecMaker(Mins=c(0,0.3),Maxs=c(0.7,1),Periods=c(4,7),Ys=Ys,Slope=2.5,wmax=2.4),
 #        type='b',xlim=XL,ylim=YL,
-#        axes=F,xlab='',ylab='',lwd=1,xpd=T,cex=0.7) 
+#        axes=F,xlab='',ylab='',lwd=1,xpd=T,cex=0.7)
 #   axis(1,at=seq(XL[1],XL[2]),tcl=-0.3,cex.axis=0.7,padj=-1.5)
 #   axis(2,pos=XL[1]-0.1,las=1,tcl=-0.3,cex.axis=0.7)
 #   text(0,0.5,'Proportional recruitment',adj=c(0.5,-6),xpd=T,srt=90,cex=0.7)
