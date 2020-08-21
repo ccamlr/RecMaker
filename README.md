@@ -16,7 +16,7 @@ timeseries originate from the LTER and AMLR programmes (Fig. 1).
 
 <div class="figure">
 
-<img src="RecMakerfiles/PublishedRecVectors.png" alt="Figure 1. Antarctic krill proportional recruitment timeseries (*Fx*: proportion of individuals below size x) as reported by the AMLR (Kinzey et al, 2013) and LTER (Ryabov et al, 2017; supplement). The range of minima (*Mins*, downward triangles), maxima (*Maxs*, upward triangles) and periods between recruitment events (*Periods*) are indicated." width="100%" />
+<img src="Figs/PublishedRecVectors.png" alt="Figure 1. Antarctic krill proportional recruitment timeseries (*Fx*: proportion of individuals below size x) as reported by the AMLR (Kinzey et al, 2013) and LTER (Ryabov et al, 2017; supplement). The range of minima (*Mins*, downward triangles), maxima (*Maxs*, upward triangles) and periods between recruitment events (*Periods*) are indicated." width="100%" />
 
 <p class="caption">
 
@@ -55,12 +55,12 @@ The local Logistic functions used in RecMaker to interpolate recruitment
 in year *y* (*R<sub>y</sub>*) between extremes (*min* and *max*), are
 computed as:
 
-<img src="RecMakerfiles/Eq1.png" width="30%" />
+<img src="Figs/Eq1.png" width="30%" />
 
 Where *Slope* controls the slope and *Mid* controls the midpoint of
 Logistic functions, which is computed as:
 
-<img src="RecMakerfiles/Eq2.png" width="26%" />
+<img src="Figs/Eq2.png" width="26%" />
 
 Where *wmax* is the weight put on the year of maximum recruitment
 (*Ymax*) which may be modulated to adjust the duration of high
@@ -68,7 +68,7 @@ recruitment and low recruitment events (see Fig. 2).
 
 <div class="figure" style="text-align: center">
 
-<img src="RecMakerfiles/Slope_and_Midpoint.png" alt="Figure 2. Effects of *Slope* (**A**) and *wmax* (**B**) on the Logistic interpolation of recruitment between extremes (blue triangles)." width="70%" />
+<img src="Figs/Slope_and_Midpoint.png" alt="Figure 2. Effects of *Slope* (**A**) and *wmax* (**B**) on the Logistic interpolation of recruitment between extremes (blue triangles)." width="70%" />
 
 <p class="caption">
 
@@ -89,7 +89,7 @@ were determined to be:
 
 <div class="figure" style="text-align: center">
 
-<img src="RecMakerfiles/FittedRec.png" alt="Figure 3. Published recruitment timeseries (blue: AMLR; red: LTER) and generated ones (black)." width="70%" />
+<img src="Figs/FittedRec.png" alt="Figure 3. Published recruitment timeseries (blue: AMLR; red: LTER) and generated ones (black)." width="70%" />
 
 <p class="caption">
 
@@ -113,7 +113,7 @@ the following parameters:
 
 <div class="figure">
 
-<img src="RecMakerfiles/RecVectors.png" alt="Figure 4. Examples of proportional recruitment timeseries as generatd by RecMaker." width="100%" />
+<img src="Figs/RecVectors.png" alt="Figure 4. Examples of proportional recruitment timeseries as generatd by RecMaker." width="100%" />
 
 <p class="caption">
 
