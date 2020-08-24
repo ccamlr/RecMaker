@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit the .Rmd file -->
 
-### RecMaker - Krill proportional recruitment time series generator
+### RecMaker - Krill proportional recruitment time series simulator
 
 This R script generates annual time series of proportional recruitment
-while accounting for the cyclical nature of Antarctic krill recruitment
-events. Its outputs may be used as inputs in population dynamics models.
-Stochasticity is included in the period between recruitment events and
-the amplitude of extremes.
+while accounting for the cyclical nature of Antarctic krill recruitment.
+Its outputs may be used as inputs in population dynamics models.
+Stochasticity is included in recruitment periodicity and the amplitude
+of extremes. The aim of this simulator is to produce recruitment series
+with defined statistical properties that also capture the important
+characteristics of empirical time series.
 
 #### Published timeseries
 
@@ -16,15 +18,14 @@ series originate from the LTER and AMLR programmes (Fig. 1).
 
 <div class="figure">
 
-<img src="Figs/PublishedRecVectors.png" alt="Figure 1. Antarctic krill proportional recruitment time series (*Fx*: proportion of individuals below size x) as reported by the AMLR (Kinzey et al, 2013) and LTER (Ryabov et al, 2017; supplement). The range of minima (*Mins*, downward triangles), maxima (*Maxs*, upward triangles) and periods between recruitment events (*Periods*) are indicated." width="100%" />
+<img src="Figs/PublishedRecVectors.png" alt="Figure 1. Antarctic krill proportional recruitment time series as reported by the AMLR (F36 is the proportion of individuals smaller than 36mm, Kinzey et al, 2013) and LTER (F30 is the proportion of individuals smaller than 30mm, Ryabov et al, 2017; supplement)." width="100%" />
 
 <p class="caption">
 
-Figure 1. Antarctic krill proportional recruitment time series (*Fx*:
-proportion of individuals below size x) as reported by the AMLR (Kinzey
-et al, 2013) and LTER (Ryabov et al, 2017; supplement). The range of
-minima (*Mins*, downward triangles), maxima (*Maxs*, upward triangles)
-and periods between recruitment events (*Periods*) are indicated.
+Figure 1. Antarctic krill proportional recruitment time series as
+reported by the AMLR (F36 is the proportion of individuals smaller than
+36mm, Kinzey et al, 2013) and LTER (F30 is the proportion of individuals
+smaller than 30mm, Ryabov et al, 2017; supplement).
 
 </p>
 
@@ -35,66 +36,59 @@ and periods between recruitment events (*Periods*) are indicated.
 To generate proportional recruitment time series, RecMaker follows these
 steps:
 
-1.  Generate a vector of years in which maximum recruitment occur. The
-    period between these years is randomly generated between chosen
-    bounds (*e.g.*, see *Periods* in Fig. 1).
+1.  Create a vector of years in which maximum recruitment occur where
+    the period between years is randomly generated between chosen
+    bounds.
 
-2.  Generate a vector of years in which minimum recruitment occur as
-    midpoints between years of maximum recruitment.
+2.  Generate a vector of years at the midpoints between consecutive
+    years of maximum recruitment, in which minimum recruitment occur.
 
-3.  Randomly generate maximum and minimum recruitment values between
-    chosen bounds (*e.g.*, see *Maxs* and *Mins* in Fig. 1).
+3.  Generate maximum and minimum recruitment values between chosen
+    bounds.
 
-4.  Interpolate values between the extremes generated above using local
-    Logistic functions (a Logistic function between each consecutive
+4.  Interpolate values between the maximum and minimum using a local
+    logistic function (a logistic function between each consecutive
     extreme; *i.e.*, min to max or max to min).
 
 #### Calibration
 
-The local Logistic functions used in RecMaker to interpolate recruitment
+The local logistic functions used in RecMaker to interpolate recruitment
 in year *y* (*R<sub>y</sub>*) between extremes (*min* and *max*), are
 computed as:
 
 <img src="Figs/Eq1.png" width="30%" />
 
-Where *Slope* controls the slope and *Mid* controls the midpoint of
-Logistic functions, which is computed as:
+Where *Slope* controls the slope and *Mid* controls the midpoint of the
+logistic functions, and is computed as:
 
 <img src="Figs/Eq2.png" width="26%" />
 
 Where *wmax* is the weight put on the year of maximum recruitment
-(*Ymax*) which may be modulated to adjust the duration of high
-recruitment and low recruitment events (see Fig. 2).
+(*Ymax*) and may be modulated to adjust the midpoint of the logistic
+function, which controls the relative duration of periods of high
+recruitment and low recruitment.
 
-<div class="figure" style="text-align: center">
-
-<img src="Figs/Slope_and_Midpoint.png" alt="Figure 2. Effects of *Slope* (**A**) and *wmax* (**B**) on the Logistic interpolation of recruitment between extremes (blue triangles)." width="70%" />
-
-<p class="caption">
-
-Figure 2. Effects of *Slope* (**A**) and *wmax* (**B**) on the Logistic
-interpolation of recruitment between extremes (blue triangles).
-
-</p>
-
-</div>
+Using the empirical series (Fig. 1), time series of minima (a value that
+was lower than the preceding and succeeding values) and maxima (a value
+that was greater than the preceding and succeeding values) were used to
+calibrate *Slope* and *wmax*.
 
 The calibration of *Slope* and *wmax* was done by finding the values
-that minimized the Root Mean Square Error between published time series
-(Fig. 1) and generated time series. As a result (Fig. 3), these values
-were determined to be:
+that minimized the Root Mean Square Error between the empirical time
+series and the simulated ones. As a result (Fig. 2), these values were
+determined to be:
 
   - *Slope*=2.5
   - *wmax*=2.4
 
 <div class="figure" style="text-align: center">
 
-<img src="Figs/FittedRec.png" alt="Figure 3. Published recruitment time series (blue: AMLR; red: LTER) and generated ones (black)." width="70%" />
+<img src="Figs/FittedRec.png" alt="Figure 2. Published recruitment time series (blue: AMLR; red: LTER) and simulated ones (black)." width="70%" />
 
 <p class="caption">
 
-Figure 3. Published recruitment time series (blue: AMLR; red: LTER) and
-generated ones (black).
+Figure 2. Published recruitment time series (blue: AMLR; red: LTER) and
+simulated ones (black).
 
 </p>
 
@@ -102,7 +96,7 @@ generated ones (black).
 
 #### Example outputs
 
-The figure below (Fig. 4) shows 9 time series generated by RecMaker
+The figure below (Fig. 3) shows 9 time series generated by RecMaker
 using the following parameters:
 
   - *Slope*=2.5
@@ -113,12 +107,12 @@ using the following parameters:
 
 <div class="figure">
 
-<img src="Figs/RecVectors.png" alt="Figure 4. Examples of proportional recruitment timeseries as generatd by RecMaker." width="100%" />
+<img src="Figs/RecVectors.png" alt="Figure 3. Examples of proportional recruitment time series as simulated by RecMaker." width="100%" />
 
 <p class="caption">
 
-Figure 4. Examples of proportional recruitment timeseries as generatd by
-RecMaker.
+Figure 3. Examples of proportional recruitment time series as simulated
+by RecMaker.
 
 </p>
 
